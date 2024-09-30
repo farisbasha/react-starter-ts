@@ -41,15 +41,21 @@ export { ${featureName}Routes };
 `;
 writeFileSync(ROUTES_FILE_PATH, routeFileContent);
 
-// Add .gitkeep to empty directories
-const dirsToGitkeep = [ICONS_DIR, COMPONENTS_DIR, PAGES_DIR];
-dirsToGitkeep.forEach(dir => writeFileSync(join(dir, '.gitkeep'), ''));
-
 // Create directories for global assets, types, and store
 mkdirSync(ASSETS_PATH, { recursive: true });
 mkdirSync(TYPES_PATH, { recursive: true });
 mkdirSync(join(STORE_PATH, 'api'), { recursive: true });
 mkdirSync(join(STORE_PATH, 'slice'), { recursive: true });
+
+// Add .gitkeep to empty directories (including assets and types)
+const dirsToGitkeep = [
+  ICONS_DIR, 
+  COMPONENTS_DIR, 
+  PAGES_DIR, 
+  ASSETS_PATH, 
+  TYPES_PATH
+];
+dirsToGitkeep.forEach(dir => writeFileSync(join(dir, '.gitkeep'), ''));
 
 // Create index.ts in store
 writeFileSync(join(STORE_PATH, 'index.ts'), `const ${featureName}Reducers = {};\n\nexport { ${featureName}Reducers };\n`);
