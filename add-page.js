@@ -76,24 +76,18 @@ const addRouteToFile = () => {
     },
   `;
 
+  // Read the current content of the routes file
   let fileContent = readFileSync(ROUTES_PATH, 'utf-8');
 
-  // Check if the routes variable for this feature exists
-  if (!fileContent.includes(`const ${routesExport} = [`)) {
-    // Add the variable declaration
-    fileContent = `const ${routesExport} = [${routeEntry}]\n\n${fileContent}`;
-  } else {
-    // Add route entry to the existing array
-    const routePattern = new RegExp(`const ${routesExport} = \\[`);
-    fileContent = fileContent.replace(routePattern, (match) => `${match}${routeEntry}`);
-  }
+  
+  fileContent = fileContent.replace(
+    `const ${routesExport}: RouteObject[] = [`,
+    `const ${routesExport}: RouteObject[] = [\n  ${routeEntry.trim()}\n`
+  );
 
-  // Ensure the route export exists
-  if (!fileContent.includes(`export { ${routesExport} }`)) {
-    fileContent += `\nexport { ${routesExport} }\n`;
-  }
-
-  writeFileSync(ROUTES_PATH, fileContent, 'utf-8');
+  // Write the updated content back to the routes file
+  writeFileSync(ROUTES_PATH, fileContent.trim() + '\n', 'utf-8');
+  console.log(`Route added for ${pageName} in ${routesExport}`);
 };
 
 // Check if routes/index.ts exists and is writable

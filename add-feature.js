@@ -73,12 +73,12 @@ if (existsSync(APP_ROUTES_PATH)) {
 
   // Check if the feature routes are already added
   if (!appRoutesContent.includes(`...${featureName}Routes`)) {
-    const routesExport = `import { ${featureName}Routes } from '../features/${featureName}/routes';`;
+    const routesExport = `import { ${featureName}Routes } from '@/features/${featureName}/routes';`;
 
     // Add the import and spread operator
     appRoutesContent = appRoutesContent.replace(
-      'const appRoutes = [',
-      `const appRoutes = [\n  ...${featureName}Routes,`
+      'const appRoutes: RouteObject[] = [',
+      `const appRoutes: RouteObject[] = [\n  ...${featureName}Routes,`
     );
 
     if (!appRoutesContent.includes(routesExport)) {
