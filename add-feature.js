@@ -4,7 +4,7 @@ import { existsSync, mkdirSync, writeFileSync, readFileSync } from 'fs';
 import { join } from 'path';
 
 // Check if the feature name is provided
-const [,, featureName] = process.argv;
+const [, , featureName] = process.argv;
 
 if (!featureName) {
   console.error('Usage: add-feature <feature-name>');
@@ -49,10 +49,10 @@ mkdirSync(join(STORE_PATH, 'slice'), { recursive: true });
 
 // Add .gitkeep to empty directories (including assets and types)
 const dirsToGitkeep = [
-  ICONS_DIR, 
-  COMPONENTS_DIR, 
-  PAGES_DIR, 
-  ASSETS_PATH, 
+  ICONS_DIR,
+  COMPONENTS_DIR,
+  PAGES_DIR,
+  ASSETS_PATH,
   TYPES_PATH
 ];
 dirsToGitkeep.forEach(dir => writeFileSync(join(dir, '.gitkeep'), ''));
@@ -130,3 +130,4 @@ if (existsSync(STORE_INDEX_PATH)) {
 }
 
 console.log(`Feature setup complete for '${featureName}'.`);
+
