@@ -1,3 +1,9 @@
+import { homeRoutes } from '@/features/home/routes';
+
+import { authRoutes } from '@/features/auth/routes';
+
+import { sharedRoutes } from '@/features/shared/routes';
+
 
 import { useMemo } from 'react';
 import {
@@ -14,6 +20,9 @@ import { AppRoot } from './root';
 
 
 const appRoutes: RouteObject[] = [
+  ...homeRoutes,
+  ...authRoutes,
+  ...sharedRoutes,
 
 
 ];
